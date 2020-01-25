@@ -1,5 +1,5 @@
 package pl.uplukaszp.exchangeOffice.domain;
 
 public enum Currency {
-	GPB,EUR,USD,CZK,PLN;
+	GBP,EUR,USD,CZK,PLN,CHF,RUB;
 }

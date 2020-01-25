@@ -17,9 +17,11 @@ public class UserDTO {
 	@NotBlank
 	@Size(min = 5)
 	String password;
-	Float gpb;
+	Float gbp;
 	Float eur;
 	Float usd;
 	Float czk;
 	Float pln;
+	Float cfh;
+	Float rub;
 }
