@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Exchange office</title>
+  </head>
+  
+  <body>
+    <h1>Register</h1>
+    <form th:method="POST" th:object="${user}" th:action="@{/register}" id="registerForm">
+    	<label for="login">Login: </label>
+        <input type="text" name="login"/><br/>
+                
+        <label for="password">Password: </label>
+        <input type="password" name="password"/><br/>
+
+        <label for="GPB">Your GPB Amount: </label>
+        <input type="number" name="gpb"/><br/>
+    
+    	<label for="EUR">Your EUR Amount: </label>
+        <input type="number" name="eur"/><br/>
+        
+        <label for="USD">Your USD Amount: </label>
+        <input type="number" name="usd"/><br/>
+        
+        <label for="CZK">Your CZK Amount: </label>
+        <input type="number" name="czk"/><br/>
+        
+        <label for="PLN">Your PLN Amount: </label>
+        <input type="number" name="pln"/><br/>
+        
+        <input type="submit" value="Register"/>
+    </form>
+    
+  </body>
+</html>
