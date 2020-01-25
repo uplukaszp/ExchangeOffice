@@ -1,8 +1,11 @@
 package pl.uplukaszp.exchangeOffice.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -23,4 +26,6 @@ public class ExchangeRate {
 	Float sellPrice;
 	@JsonProperty("AveragePrice")
 	Float averagePrice;
+	@JsonIgnore
+	Date date;
 }

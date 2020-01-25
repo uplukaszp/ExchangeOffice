@@ -1,64 +1,44 @@
 package pl.uplukaszp.exchangeOffice.util;
 
-import java.nio.ByteBuffer;
+import java.util.List;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.PongMessage;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import pl.uplukaszp.exchangeOffice.domain.Currencies;
+import pl.uplukaszp.exchangeOffice.domain.ExchangeRate;
+import pl.uplukaszp.exchangeOffice.domain.ExchangeRates;
 import pl.uplukaszp.exchangeOffice.repository.ExchangeRateRepository;
 
 @Component
 @AllArgsConstructor
 @Slf4j
-public class ExchangeRateHandler implements WebSocketHandler {
-	ObjectMapper mapper;
+public class ExchangeRateHandler extends TextWebSocketHandler {
 	ExchangeRateRepository repository;
+	SimpMessagingTemplate messagingTemplate;
+	ObjectMapper mapper;
+
 	@Override
-	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		log.info("Connection established");
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		super.handleTextMessage(session, message);
+		log.info("Incoming text message: " + message.getPayload());
+		List<ExchangeRate> savedRated = saveRatesFromMessage(message);
+		messagingTemplate.convertAndSend("/currencies/", savedRated);
 	}
 
-	@Override
-	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
-		if (message instanceof TextMessage) {
-			TextMessage text = (TextMessage) message;
-			log.info("Incoming text message: " + text.getPayload());
-			Currencies currencies = mapper.readValue(text.asBytes(), Currencies.class);
-			log.info(currencies.toString());
-			repository.saveAll(currencies.getItems());
-		}
-		if (message instanceof PongMessage) {
-			PongMessage pong = (PongMessage) message;
-			ByteBuffer payload = pong.getPayload();
-			log.info("Incoming pong message: " + new String(payload.array()));
-		}
-
-	}
-
-	@Override
-	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-		log.info("exception " + exception);
-	}
-
-	@Override
-	public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-		log.info("closed: " + closeStatus.getReason());
-
-	}
-
-	@Override
-	public boolean supportsPartialMessages() {
-		return true;
+	private List<ExchangeRate> saveRatesFromMessage(TextMessage message) throws JsonProcessingException, JsonMappingException {
+		ExchangeRates rates = mapper.readValue(message.getPayload(), ExchangeRates.class);
+		rates.getItems().stream().forEach(item -> item.setDate(rates.getPublicationDate()));
+		List<ExchangeRate> savedRated = (List<ExchangeRate>) repository.saveAll(rates.getItems());
+		return savedRated;
 	}
 
 }
