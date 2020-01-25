@@ -9,5 +9,5 @@ import pl.uplukaszp.exchangeOffice.domain.Wallet;
 
 @Repository
 public interface WalletRepository extends CrudRepository<Wallet,Long> {
-
+	List<Wallet> findAllByIdUserId(Long userId);
 }
