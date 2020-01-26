@@ -9,6 +9,6 @@ import lombok.Data;
 @Data
 public class MainWallet {
 	@Id
-	Currency cureency;
+	Currency currency;
 	Float amount;
 }
