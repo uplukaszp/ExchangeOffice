@@ -1,27 +1,43 @@
 package pl.uplukaszp.exchangeOffice.service;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.socket.client.WebSocketClient;
-import org.springframework.web.socket.client.standard.StandardWebSocketClient;
+import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
-import pl.uplukaszp.exchangeOffice.util.ExchangeRateHandler;
+import pl.uplukaszp.exchangeOffice.domain.Currency;
+import pl.uplukaszp.exchangeOffice.domain.ExchangeRate;
+import pl.uplukaszp.exchangeOffice.dto.ExchangeRateDTO;
+import pl.uplukaszp.exchangeOffice.repository.ExchangeRateRepository;
 
-@Controller
+@Service
 @AllArgsConstructor
 public class ExchangeRateService {
+	ExchangeRateRepository repo;
 
-	ExchangeRateHandler handler;
-	private static final String url = "ws://webtask.future-processing.com:8068/ws/currencies?format=json";
-
-	@PostConstruct
-	public void connect() throws URISyntaxException {
-		WebSocketClient client = new StandardWebSocketClient();
-		client.doHandshake(handler, null, new URI(url));
+	public List<ExchangeRateDTO> getRates() {
+		List<ExchangeRate> rates = (List<ExchangeRate>) repo.findAll();
+		List<ExchangeRateDTO> dtos = new ArrayList<>();
+		List<Currency> currencies = new ArrayList<Currency>(Arrays.asList(Currency.values()));
+		currencies.remove(Currency.PLN);
+		for (Currency currency : currencies) {
+			ExchangeRateDTO dto = new ExchangeRateDTO();
+			dto.setCode(currency);
+			dto.setIsRateAviable(false);
+			dto.setPurchasePrice("-");
+			dto.setUnit("-");
+			for (ExchangeRate rate : rates) {
+				if (rate.getCode().equals(currency)) {
+					dto.setIsRateAviable(true);
+					dto.setPurchasePrice(String.valueOf(rate.getPurchasePrice()));
+					dto.setUnit(String.valueOf(rate.getUnit()));
+					dtos.add(dto);
+				}
+			}
+		}
+		return dtos;
 	}
+
 }

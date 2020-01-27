@@ -54,6 +54,8 @@ public class UserService implements UserDetailsService {
 		wallets.add(new Wallet(id, Currency.GBP, getNonNullValue(userDTO.getGbp())));
 		wallets.add(new Wallet(id, Currency.PLN, getNonNullValue(userDTO.getPln())));
 		wallets.add(new Wallet(id, Currency.USD, getNonNullValue(userDTO.getUsd())));
+		wallets.add(new Wallet(id, Currency.CHF, getNonNullValue(userDTO.getUsd())));
+		wallets.add(new Wallet(id, Currency.RUB, getNonNullValue(userDTO.getUsd())));
 
 		return wallets;
 	}

@@ -6,29 +6,44 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import pl.uplukaszp.exchangeOffice.domain.Currency;
 import pl.uplukaszp.exchangeOffice.domain.User;
 import pl.uplukaszp.exchangeOffice.service.BuyingService;
 import pl.uplukaszp.exchangeOffice.service.SelllingService;
+import pl.uplukaszp.exchangeOffice.util.Status;
 
-@Controller
+@RestController
 @RequestMapping("/transaction")
 @AllArgsConstructor
 public class TransactionController {
 	BuyingService buying;
 	SelllingService sell;
 	@PostMapping("/buying")
-	ResponseEntity<String> buy(Currency currencyType,Long amount,Authentication principal){
+	@ResponseBody
+	ResponseEntity<Status> buy(Currency currencyType,Long amount,Authentication principal){
 		User user = (User) principal.getPrincipal();
 		
-		return new ResponseEntity<>(buying.execute(currencyType, amount, user.getId()).getReason(),HttpStatus.OK);
+		Status status = buying.execute(currencyType, amount, user.getId());
+		System.out.println(status);
+		if(status.getIsOK()) {
+			return new ResponseEntity<>(status,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(status,HttpStatus.UNPROCESSABLE_ENTITY);
 		
 	}
 	@PostMapping("/selling")
-	ResponseEntity<String> sell(Currency currencyType,Long amount,Authentication principal){
+	@ResponseBody
+	ResponseEntity<Status> sell(Currency currencyType,Long amount,Authentication principal){
 		User user = (User) principal.getPrincipal();
-		return new ResponseEntity<>(sell.execute(currencyType, amount, user.getId()).getReason(),HttpStatus.OK);
+		Status status = sell.execute(currencyType, amount, user.getId());
+		System.out.println(status);
+		if(status.getIsOK()) {
+			return new ResponseEntity<>(status,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(status,HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 }

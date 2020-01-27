@@ -8,7 +8,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Register in Exchange</title>
+<title>Exchange office</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -32,8 +32,7 @@
 					</div>
 					<div class="col-md-2">
 						<p>Logged in as</p>
-						<p>
-							<a class="btn" href="#"></a>
+						<p class="font-weight-bold" th:text="${userInfo}">
 						</p>
 					</div>
 					<div class="col-md-2">
@@ -44,7 +43,7 @@
 				<div class="row">
 					<div class="col-md-6">
 						<h3>Currencies</h3>
-						<table class="table table-bordered">
+						<table class="table table-bordered currencyTable">
 							<thead>
 								<tr class="table-secondary">
 									<th class="text-center">Currency</th>
@@ -54,23 +53,12 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td class="text-center">GBP</td>
-									<td class="text-center">1</td>
-									<td class="text-center">1.22</td>
+							      <tr th:each="rate : ${exchangeRates}">
+									<td class="text-center" th:text="${rate.code}"></td>
+									<td class="text-center" th:text="${rate.unit}"></td>
+									<td class="text-center" th:text="${rate.purchasePrice}"></td>
 									<td class="text-center">
-										<button type="button" class="btn btn-sm btn-primary">
-										Buy</button>
-									</td>
-								</tr>
-
-								<tr>
-									<td class="text-center">EUR</td>
-
-									<td class="text-center">1</td>
-									<td class="text-center">1.2222222</td>
-									<td class="text-center">
-										<button type="button" class="btn btn-sm btn-primary">
+										<button type="button" th:attr="currency=${rate.code}" class="btn btn-sm btn-primary">
 										Buy</button>
 									</td>
 								</tr>
@@ -80,7 +68,7 @@
 					</div>
 					<div class="col-md-6">
 						<h3>My wallet</h3>
-						<table class="table table-bordered">
+						<table class="table table-bordered walletTable">
 							<thead>
 								<tr class="table-secondary">
 									<th class="text-center">Currency</th>
@@ -91,35 +79,21 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td class="text-center">GBP</td>
-									<td class="text-center">5.22</td>
-									<td class="text-center">100</td>
-									<td class="text-center">1500</td>
+								 <tr th:each="wallet : ${userWallets}">
+									<td class="text-center" th:text="${wallet.currency}"></td>
+									<td class="text-center" th:text="${wallet.unitPrice}"></td>
+									<td class="text-center" th:text="${wallet.amount}"></td>
+									<td class="text-center" th:text="${wallet.value}"></td>
 									<td class="text-center">
-										<button type="button" class="btn btn-sm btn-primary">
-											Sell</button>
-									</td>
-								</tr>
-
-								<tr>
-									<td class="text-center">EUR</td>
-									<td class="text-center">4.12</td>
-									<td class="text-center">10</td>
-									<td class="text-center">15</td>
-									<td class="text-center">
-										<button type="button" class="btn btn-sm btn-primary">
-											Sell</button>
+										<button type="button" th:attr="currency=${wallet.currency}" class="btn btn-sm btn-primary">
+										Sell</button>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 						<div class="row">
 							<div class="col-md-12">
-								<p>Available PLN:</p>
-								<p>
-									<a class="btn" href="#"></a>
-								</p>
+								<p>Available PLN:</p><p class="font-weight-bold" th:text="${settlementAmount}">
 							</div>
 						</div>
 					</div>
@@ -127,6 +101,7 @@
 			</div>
 		</div>
 	</div>
+        <script th:src="@{js/app.js}"></script>
 
 </body>
 </html>

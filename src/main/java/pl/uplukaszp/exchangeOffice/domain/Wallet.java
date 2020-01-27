@@ -24,4 +24,7 @@ public class Wallet implements Serializable {
 		this.amount = amount;
 	}
 
+	public Currency getCurrency() {
+		return id.currency;
+	}
 }

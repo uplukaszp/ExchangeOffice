@@ -25,7 +25,7 @@ public class WalletController {
 	@ResponseBody
 	public ResponseEntity<List<Wallet>> getUserWallet(Authentication principal) {
 		User user = (User) principal.getPrincipal();
-		 List<Wallet> userWallets = service.getUserWallets(user.getLogin());
+		 List<Wallet> userWallets = service.getUserWallets(user.getId());
 		 return new ResponseEntity<List<Wallet>>(userWallets,HttpStatus.OK);
 	}
 }
