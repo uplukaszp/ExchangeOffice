@@ -55,6 +55,8 @@ function addServiceListener(){
 	}
 	var socket = new WebSocket(addres+'/stomp');
 	ws = Stomp.over(socket);
+	ws.debug = null
+	ws.reconnect_delay = 5000;
 
 	ws.connect({}, function(frame) {
 	ws.subscribe("/currencies/", function(message) {
@@ -71,7 +73,7 @@ function addServiceListener(){
 
 	});
 	}, function(error) {
-		alert("Websocket error " + error);
+		console.log(error);
 	});
 
 

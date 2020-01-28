@@ -25,7 +25,7 @@
 				<div class="alert alert-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Password error</div>
         	</p>
 			<p>
-				<label for="password" >Password</label>
+				<label for="password" >Password (minimum 5 characters)</label>
 				<input type="password" id="password" name="password" class="form-control" placeholder="Password" required pattern=".{5,}"   >
 				<div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
         	</p>

@@ -63,4 +63,10 @@ public class UserService implements UserDetailsService {
 	private Float getNonNullValue(Float value) {
 		return (value != null) ? value : 0.0f;
 	}
+
+
+
+	public Object findByLogin(String login) {
+		return userRepository.findByLogin(login);
+	}
 }

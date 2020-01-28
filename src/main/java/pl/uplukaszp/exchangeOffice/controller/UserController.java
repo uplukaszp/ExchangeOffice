@@ -30,6 +30,9 @@ public class UserController {
 	}
 	@PostMapping("/register")
 	public String registerUser(@ModelAttribute(name="user")@Valid UserDTO user,BindingResult errors) {
+		if(userService.findByLogin(user.getLogin())!=null){
+			errors.rejectValue("login", "login.exist","User with this login exist");
+		}
 		if(errors.hasErrors()) {
 			return "register";
 		}
