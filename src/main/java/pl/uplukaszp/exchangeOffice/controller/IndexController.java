@@ -24,12 +24,13 @@ public class IndexController {
 
 	@GetMapping
 	public String getIndex(Model model, Authentication auth) {
-		if(auth==null)return "redirect:/login";
+		if (auth == null)
+			return "redirect:/login";
 		User user = (User) auth.getPrincipal();
 		addUserWalletData(model, user);
 		addCurrenciesData(model);
-		addUserInfo(model,user);
-		addSettlementInfo(model,user);
+		addUserInfo(model, user);
+		addSettlementInfo(model, user);
 		return "index";
 	}
 
@@ -41,16 +42,12 @@ public class IndexController {
 	private void addCurrenciesData(Model model) {
 		model.addAttribute("exchangeRates", exchangeRateService.getRates());
 	}
-	
+
 	private void addUserInfo(Model model, User user) {
 		model.addAttribute("userInfo", user.getUsername());
 	}
+
 	private void addSettlementInfo(Model model, User user) {
 		model.addAttribute("settlementAmount", walletService.getUserSettlementWallet(user.getId()).getAmount());
 	}
 }
-//TODO
-//TRANSAKCJE (LICZENIE WARUNKI BRZEGOWE)
-// WEBSOCKET DO ODSWIEZANIA
-//CODE CLEAN
-//DOKUMENTACJA URUCHOMIENIOWA

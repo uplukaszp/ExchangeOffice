@@ -3,7 +3,6 @@ package pl.uplukaszp.exchangeOffice.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,26 +21,28 @@ import pl.uplukaszp.exchangeOffice.util.Status;
 public class TransactionController {
 	BuyingService buying;
 	SelllingService sell;
+
 	@PostMapping("/buying")
 	@ResponseBody
-	ResponseEntity<Status> buy(Currency currencyType,Long amount,Authentication principal){
+	ResponseEntity<Status> buy(Currency currencyType, Long amount, Authentication principal) {
 		User user = (User) principal.getPrincipal();
-		
+
 		Status status = buying.execute(currencyType, amount, user.getId());
-		if(status.getIsOK()) {
-			return new ResponseEntity<>(status,HttpStatus.OK);
+		if (status.getIsOK()) {
+			return new ResponseEntity<>(status, HttpStatus.OK);
 		}
-		return new ResponseEntity<>(status,HttpStatus.UNPROCESSABLE_ENTITY);
-		
+		return new ResponseEntity<>(status, HttpStatus.UNPROCESSABLE_ENTITY);
+
 	}
+
 	@PostMapping("/selling")
 	@ResponseBody
-	ResponseEntity<Status> sell(Currency currencyType,Long amount,Authentication principal){
+	ResponseEntity<Status> sell(Currency currencyType, Long amount, Authentication principal) {
 		User user = (User) principal.getPrincipal();
 		Status status = sell.execute(currencyType, amount, user.getId());
-		if(status.getIsOK()) {
-			return new ResponseEntity<>(status,HttpStatus.OK);
+		if (status.getIsOK()) {
+			return new ResponseEntity<>(status, HttpStatus.OK);
 		}
-		return new ResponseEntity<>(status,HttpStatus.UNPROCESSABLE_ENTITY);
+		return new ResponseEntity<>(status, HttpStatus.UNPROCESSABLE_ENTITY);
 	}
 }

@@ -1,7 +1,5 @@
 package pl.uplukaszp.exchangeOffice.service;
 
-import java.util.Arrays;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,7 +11,6 @@ import pl.uplukaszp.exchangeOffice.domain.MainWallet;
 import pl.uplukaszp.exchangeOffice.domain.Wallet;
 import pl.uplukaszp.exchangeOffice.repository.ExchangeRateRepository;
 import pl.uplukaszp.exchangeOffice.repository.MainWalletRepository;
-import pl.uplukaszp.exchangeOffice.repository.UserRepository;
 import pl.uplukaszp.exchangeOffice.repository.WalletRepository;
 import pl.uplukaszp.exchangeOffice.util.Status;
 import pl.uplukaszp.exchangeOffice.util.TransactionData;
@@ -59,8 +56,6 @@ public class BuyingService {
 
 		data.setUserWallet(walletRepo.findByIdUserIdAndIdCurrency(userId, data.getCurrency()));
 		data.setUserSettlementWallet(walletRepo.findByIdUserIdAndIdCurrency(userId, Currency.PLN));
-		for (MainWallet mainWallet : mainWalletRepo.findAll()) {
-		}
 		data.setMainWallet(mainWalletRepo.findById(data.getCurrency()).get());
 		data.setMainSettlementWallet(mainWalletRepo.findById(Currency.PLN).get());
 		return data;

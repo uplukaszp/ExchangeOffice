@@ -8,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +15,6 @@ import pl.uplukaszp.exchangeOffice.dto.UserDTO;
 import pl.uplukaszp.exchangeOffice.service.UserService;
 
 @Controller
-//@RequestMapping("/register")
 @SessionAttributes
 @AllArgsConstructor
 public class UserController {
