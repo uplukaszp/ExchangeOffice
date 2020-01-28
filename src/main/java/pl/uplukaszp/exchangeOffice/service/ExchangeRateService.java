@@ -40,5 +40,8 @@ public class ExchangeRateService {
 		}
 		return dtos;
 	}
+	public List<ExchangeRate> saveAll(List<ExchangeRate> rates){
+		return (List<ExchangeRate>) repo.saveAll(rates);
+	}
 
 }

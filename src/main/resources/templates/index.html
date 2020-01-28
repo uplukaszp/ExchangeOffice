@@ -17,6 +17,7 @@
 <link
 	href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css"
 	rel="stylesheet" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 </head>
 
 <body class="bg-white">
@@ -53,7 +54,7 @@
 								</tr>
 							</thead>
 							<tbody>
-							      <tr th:each="rate : ${exchangeRates}">
+							      <tr th:each="rate : ${exchangeRates}" th:attr="rate=${rate.code}">
 									<td class="text-center" th:text="${rate.code}"></td>
 									<td class="text-center" th:text="${rate.unit}"></td>
 									<td class="text-center" th:text="${rate.purchasePrice}"></td>
@@ -67,7 +68,7 @@
 						</table>
 						<div class="row">
 							<div class="col-md-12">
-								<p>Publication Date:</p><p class="font-weight-bold date" th:text="${exchangeRates[0].date}">
+								<p>Publication Date:</p><p class="font-weight-bold pubDate" th:text="${exchangeRates[0].date}">
 							</div>
 						</div>
 					</div>
