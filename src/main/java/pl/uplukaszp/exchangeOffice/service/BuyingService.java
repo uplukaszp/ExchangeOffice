@@ -60,7 +60,6 @@ public class BuyingService {
 		data.setUserWallet(walletRepo.findByIdUserIdAndIdCurrency(userId, data.getCurrency()));
 		data.setUserSettlementWallet(walletRepo.findByIdUserIdAndIdCurrency(userId, Currency.PLN));
 		for (MainWallet mainWallet : mainWalletRepo.findAll()) {
-			System.out.println(mainWallet);
 		}
 		data.setMainWallet(mainWalletRepo.findById(data.getCurrency()).get());
 		data.setMainSettlementWallet(mainWalletRepo.findById(Currency.PLN).get());
@@ -69,17 +68,17 @@ public class BuyingService {
 
 	private Status hasUserEnoughMoney(TransactionData data) {
 		if (data.getAmount() * data.getPrice() <= data.getUserSettlementWallet().getAmount()) {
-			return new Status(true, "user has enought money");
+			return new Status(true, "You have enought money");
 		}
-		return new Status(false, "user has not enought money");
+		return new Status(false, "You have not enought money");
 	}
 
 	private Status hasExchangeOfficeEnoughMoney(TransactionData data) {
 		if (data.getAmount() * data.getUnit() <= data.getMainWallet().getAmount()) {
-			return new Status(true, "exchange office has enought money");
+			return new Status(true, "Exchange office has enought money");
 
 		}
-		return new Status(false, "exchange office has not enought money");
+		return new Status(false, "Exchange office has not enought money");
 	}
 
 	private Status buyCurrencyForUser(TransactionData data) {

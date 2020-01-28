@@ -28,7 +28,6 @@ public class TransactionController {
 		User user = (User) principal.getPrincipal();
 		
 		Status status = buying.execute(currencyType, amount, user.getId());
-		System.out.println(status);
 		if(status.getIsOK()) {
 			return new ResponseEntity<>(status,HttpStatus.OK);
 		}
@@ -40,7 +39,6 @@ public class TransactionController {
 	ResponseEntity<Status> sell(Currency currencyType,Long amount,Authentication principal){
 		User user = (User) principal.getPrincipal();
 		Status status = sell.execute(currencyType, amount, user.getId());
-		System.out.println(status);
 		if(status.getIsOK()) {
 			return new ResponseEntity<>(status,HttpStatus.OK);
 		}
