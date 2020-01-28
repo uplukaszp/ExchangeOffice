@@ -7,7 +7,7 @@ function addButtonsListener(className,endPoint){
 			    	var currency=this.getAttribute('currency');
 			    	if(confirm("Are you sure?")){
 			    		const xhr = new XMLHttpRequest();
-			    		xhr.open("POST", location.origin+"transaction/"+endPoint+"?currencyType="+currency+"&amount=1", true);
+			    		xhr.open("POST", location.origin+"/transaction/"+endPoint+"?currencyType="+currency+"&amount=1", true);
 			    		xhr.addEventListener("load", function() {
 			    			let status=JSON.parse(xhr.response);
 			    		    alert(status.reason);
@@ -26,13 +26,8 @@ function addButtonsListener(className,endPoint){
 
 function reloadWallet(){
 	const xhr = new XMLHttpRequest();
-	let addres=location.origin;
-	if(addres.startsWith('https')){
-		addres=address.replace('https','ws');
-	}else{
-		addres=addres.replace('http','ws');
-	}
-	xhr.open("GET", addres+"/wallet", true);
+
+	xhr.open("GET", location.origin+"/wallet", true);
 			    		xhr.addEventListener("load", function() {
 			    			let response=JSON.parse(xhr.response);
 			    			let wallets=response.userWallets;
@@ -52,7 +47,13 @@ function reloadWallet(){
 }
 
 function addServiceListener(){
-	var socket = new WebSocket('ws://localhost:8080/stomp');
+	let addres=location.origin;
+	if(addres.startsWith('https')){
+		addres=addres.replace('https','wss');
+	}else{
+		addres=addres.replace('http','ws');
+	}
+	var socket = new WebSocket(addres+'/stomp');
 	ws = Stomp.over(socket);
 
 	ws.connect({}, function(frame) {
@@ -74,23 +75,6 @@ function addServiceListener(){
 	});
 
 
-
-
-//	var socket = new WebSocket('ws://localhost:8080/stomp');
-//	ws = Stomp.over(socket);
-//	socket.onopen = () =>{console.log('aaa');
-//	ws.subscribe("/currencies/", function(message) {
-//		let rates=JSON.parse(xhr.response);
-//		console.log('aa');
-//		for(let i in rates){
-//			let row=document.querySelector('tr[rate='+rates[i].code+']');
-//			row.children[1].innerText=rates[i].unit;
-//			row.children[2].innerText=rates[i].purchasePrice;
-//		}
-//		document.querySelector('.settlementAmount').innerText=response.settlementAmount;
-//	}, function(error) {
-//		alert("STOMP error " + error);
-//	});}
 }
 
 addButtonsListener('.currencyTable','buying');
