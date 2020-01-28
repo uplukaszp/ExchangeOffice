@@ -74,6 +74,7 @@ function addServiceListener(){
 	});
 	}, function(error) {
 		console.log(error);
+		setTimeout(addServiceListener,1000);
 	});
 
 
