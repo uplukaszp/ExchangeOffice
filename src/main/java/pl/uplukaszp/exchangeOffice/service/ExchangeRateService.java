@@ -33,6 +33,7 @@ public class ExchangeRateService {
 					dto.setIsRateAviable(true);
 					dto.setPurchasePrice(String.valueOf(rate.getPurchasePrice()));
 					dto.setUnit(String.valueOf(rate.getUnit()));
+					dto.setDate(rate.getDate());
 					dtos.add(dto);
 				}
 			}

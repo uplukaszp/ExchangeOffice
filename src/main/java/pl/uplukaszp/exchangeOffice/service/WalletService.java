@@ -54,7 +54,7 @@ public class WalletService {
 		if(exRate!=null) {
 			Float price=exRate.getSellPrice();
 			dto.setUnitPrice(String.valueOf(price));
-			dto.setValue(String.valueOf(dto.getAmount()*price));
+			dto.setValue(String.valueOf(dto.getAmount()*price/exRate.getUnit()));
 			
 		}else {
 			dto.setUnitPrice("-");
