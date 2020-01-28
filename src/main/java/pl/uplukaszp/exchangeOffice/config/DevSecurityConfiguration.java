@@ -14,9 +14,7 @@ public class DevSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/h2_console/**").permitAll()
-        .antMatchers("/user").permitAll();
-        http.formLogin();
+                .antMatchers("/**").permitAll().and().formLogin().loginPage("/login");
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }

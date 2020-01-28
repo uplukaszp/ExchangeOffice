@@ -24,6 +24,7 @@ public class IndexController {
 
 	@GetMapping
 	public String getIndex(Model model, Authentication auth) {
+		if(auth==null)return "redirect:/login";
 		User user = (User) auth.getPrincipal();
 		addUserWalletData(model, user);
 		addCurrenciesData(model);
@@ -50,7 +51,6 @@ public class IndexController {
 }
 //TODO
 //TRANSAKCJE (LICZENIE WARUNKI BRZEGOWE)
-//SESJE ( LOGOWANIE ITP)
 // WEBSOCKET DO ODSWIEZANIA
 //CODE CLEAN
 //DOKUMENTACJA URUCHOMIENIOWA

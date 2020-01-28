@@ -16,22 +16,23 @@ import pl.uplukaszp.exchangeOffice.dto.UserDTO;
 import pl.uplukaszp.exchangeOffice.service.UserService;
 
 @Controller
-@RequestMapping("/register")
+//@RequestMapping("/register")
 @SessionAttributes
 @AllArgsConstructor
 public class UserController {
 	UserService userService;
-	@GetMapping
+	@GetMapping("/register")
 	public String getRegisterForm(Model model) {
 		model.addAttribute("user",new UserDTO());
 		return "register";
 	}
-	
-	@PostMapping
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	@PostMapping("/register")
 	public String registerUser(@ModelAttribute(name="user")@Valid UserDTO user,BindingResult errors) {
-		System.out.println(user);
 		if(errors.hasErrors()) {
-			System.out.println("error");
 			return "register";
 		}
 		userService.registerUser(user);
