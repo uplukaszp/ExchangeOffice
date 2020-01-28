@@ -16,21 +16,17 @@ import lombok.AllArgsConstructor;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userService;
 	private PasswordEncoder encoder;
-	
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userService).passwordEncoder(encoder);
-		
+
 	}
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-        .antMatcher("/**")
-        .authorizeRequests()
-          .antMatchers("/login**","/register**")
-          .permitAll()
-        .anyRequest()
-          .authenticated().and().formLogin().loginPage("/login");
-    }
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.antMatcher("/**").authorizeRequests().antMatchers("/login**", "/register**").permitAll()
+		.anyRequest().authenticated()
+		.and().formLogin().loginPage("/login").and().csrf().disable();
+	}
 }
