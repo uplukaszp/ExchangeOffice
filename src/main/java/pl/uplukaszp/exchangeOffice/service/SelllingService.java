@@ -63,17 +63,20 @@ public class SelllingService {
 
 	private Status hasUserEnoughMoney(TransactionData data) {
 		if (data.getAmount() <= data.getUserSettlementWallet().getAmount()) {
-			return new Status(true, "user has enought money");
+			if(data.getUserWallet().getAmount()-data.getAmount()<0) {
+				return new Status(false, "You can't sell more money than you own");
+			}
+			return new Status(true, "You have enought money");
 		}
-		return new Status(false, "user has not enought money");
+		return new Status(false, "You don't have enought money");
 	}
 
 	private Status hasExchangeOfficeEnoughMoney(TransactionData data) {
 		if (data.getAmount()*data.getPrice() <= data.getMainSettlementWallet().getAmount()) {
-			return new Status(true, "exchange office has enought money");
+			return new Status(true, "Exchange office has enought money");
 
 		}
-		return new Status(false, "exchange office has not enought money");
+		return new Status(false, "Exchange office has not enought money");
 	}
 
 	private Status buyCurrencyForUser(TransactionData data) {

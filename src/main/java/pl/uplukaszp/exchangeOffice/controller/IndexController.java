@@ -48,3 +48,9 @@ public class IndexController {
 		model.addAttribute("settlementAmount", walletService.getUserSettlementWallet(user.getId()).getAmount());
 	}
 }
+//TODO
+//TRANSAKCJE (LICZENIE WARUNKI BRZEGOWE)
+//SESJE ( LOGOWANIE ITP)
+// WEBSOCKET DO ODSWIEZANIA
+//CODE CLEAN
+//DOKUMENTACJA URUCHOMIENIOWA

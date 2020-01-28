@@ -36,8 +36,8 @@
 						</p>
 					</div>
 					<div class="col-md-2">
-							<button class="btn btn-primary" type="button">
-								LogOut</button>
+							<a href='/logout' class="btn btn-primary" type="button">
+								LogOut</a>
 					</div>
 				</div>
 				<div class="row">
@@ -79,7 +79,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								 <tr th:each="wallet : ${userWallets}">
+								 <tr th:each="wallet : ${userWallets}" th:attr="wallet=${wallet.currency}">
 									<td class="text-center" th:text="${wallet.currency}"></td>
 									<td class="text-center" th:text="${wallet.unitPrice}"></td>
 									<td class="text-center" th:text="${wallet.amount}"></td>
@@ -93,7 +93,7 @@
 						</table>
 						<div class="row">
 							<div class="col-md-12">
-								<p>Available PLN:</p><p class="font-weight-bold" th:text="${settlementAmount}">
+								<p>Available PLN:</p><p class="font-weight-bold settlementAmount" th:text="${settlementAmount}">
 							</div>
 						</div>
 					</div>

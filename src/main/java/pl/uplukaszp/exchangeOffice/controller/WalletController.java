@@ -1,6 +1,8 @@
 package pl.uplukaszp.exchangeOffice.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.AllArgsConstructor;
 import pl.uplukaszp.exchangeOffice.domain.User;
-import pl.uplukaszp.exchangeOffice.domain.Wallet;
+import pl.uplukaszp.exchangeOffice.dto.UserWalletDTO;
 import pl.uplukaszp.exchangeOffice.service.WalletService;
 
 @Controller
@@ -23,9 +25,12 @@ public class WalletController {
 
 	@GetMapping
 	@ResponseBody
-	public ResponseEntity<List<Wallet>> getUserWallet(Authentication principal) {
+	public ResponseEntity<Map<String,Object>> getUserWallet(Authentication principal) {
 		User user = (User) principal.getPrincipal();
-		 List<Wallet> userWallets = service.getUserWallets(user.getId());
-		 return new ResponseEntity<List<Wallet>>(userWallets,HttpStatus.OK);
+		Map<String,Object> map=new HashMap<>();
+		 List<UserWalletDTO> userWallets = service.getUserWalletsDTO(user.getId());
+		 map.put("userWallets", userWallets);
+		 map.put("settlementAmount",service.getUserSettlementWallet(user.getId()).getAmount());
+		 return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
 }

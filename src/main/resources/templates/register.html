@@ -31,37 +31,37 @@
         	</p>
         	<p>
 				<label for="gbp" >Your GBP Amount</label>
-				<input type="text" pattern= "[0-9]" id="GBP" name="gbp" class="form-control" placeholder="GBP"  min=0>
+				<input type="text" pattern= "[0-9]+" id="GBP" name="gbp" class="form-control" placeholder="GBP"  min=0>
 				<div class="alert alert-danger" th:if="${#fields.hasErrors('gbp')}" th:errors="*{gbp}">GBP error</div>	
         	</p>
         	<p>
 				<label for="eur" >Your EUR Amount</label>
-				<input type="text" pattern= "[0-9]" id="eur" name="eur" class="form-control" placeholder="EUR"  min=0>
+				<input type="text" pattern= "[0-9]+" id="eur" name="eur" class="form-control" placeholder="EUR"  min=0>
 				<div class="alert alert-danger" th:if="${#fields.hasErrors('eur')}" th:errors="*{eur}">EUR error</div>	
         	</p>
         	<p>
 				<label for="" >Your USD Amount</label>
-				<input type="text" pattern= "[0-9]" id="usd" name="usd" class="form-control" placeholder="USD"  min=0>
+				<input type="text" pattern= "[0-9]+" id="usd" name="usd" class="form-control" placeholder="USD"  min=0>
 				<div class="alert alert-danger" th:if="${#fields.hasErrors('usd')}" th:errors="*{usd}">USD error</div>	
         	</p>
         	<p>
 				<label for="" >Your CZK Amount</label>
-				<input type="text" pattern= "[0-9]" id="czk" name="czk" class="form-control" placeholder="CZK"  min=0>
+				<input type="text" pattern= "[0-9]+" id="czk" name="czk" class="form-control" placeholder="CZK"  min=0>
 				<div class="alert alert-danger" th:if="${#fields.hasErrors('czk')}" th:errors="*{czk}">CZK error</div>	
         	</p>
         	<p>
 				<label for="" >Your PLN Amount</label>
-				<input type="text" pattern= "[0-9]" id="pln" name="pln" class="form-control" placeholder="PLN"  min=0>
+				<input type="text" pattern= "[0-9]+" id="pln" name="pln" class="form-control" placeholder="PLN"  min=0>
 				<div class="alert alert-danger" th:if="${#fields.hasErrors('pln')}" th:errors="*{pln}">PLN error</div>	
         	</p>
         	<p>
 				<label for="" >Your CFH Amount</label>
-				<input type="text" pattern= "[0-9]" id="cfh" name="cfh" class="form-control" placeholder="CFH"  min=0>
+				<input type="text" pattern= "[0-9]+" id="cfh" name="cfh" class="form-control" placeholder="CFH"  min=0>
 				<div class="alert alert-danger" th:if="${#fields.hasErrors('cfh')}" th:errors="*{cfh}">CFH error</div>	
         	</p>
         	<p>
 				<label for="" >Your RUB Amount</label>
-				<input type="text" pattern= "[0-9]" id="rub" name="rub" class="form-control" placeholder="RUB"  min=0>
+				<input type="text" pattern= "[0-9]+" id="rub" name="rub" class="form-control" placeholder="RUB"  min=0>
 				<div class="alert alert-danger" th:if="${#fields.hasErrors('rub')}" th:errors="*{rub}">RUB error</div>	
         	</p>
         	
