@@ -14,18 +14,18 @@ import lombok.Data;
 @Entity
 public class ExchangeRate {
 	@JsonProperty("Name")
-	String name;
+	private String name;
 	@Id
 	@JsonProperty("Code")
-	Currency code;
+	private Currency code;
 	@JsonProperty("Unit")
-	Integer unit;
+	private Integer unit;
 	@JsonProperty("PurchasePrice")
-	Float purchasePrice;
+	private Float purchasePrice;
 	@JsonProperty("SellPrice")
-	Float sellPrice;
+	private Float sellPrice;
 	@JsonProperty("AveragePrice")
-	Float averagePrice;
+	private Float averagePrice;
 	@JsonIgnore
-	Date date;
+	private Date date;
 }

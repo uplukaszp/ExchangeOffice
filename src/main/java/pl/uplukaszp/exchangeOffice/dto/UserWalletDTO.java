@@ -6,9 +6,9 @@ import pl.uplukaszp.exchangeOffice.domain.Currency;
 
 @Data
 public class UserWalletDTO {
-	Currency currency;
-	String unitPrice;
-	Float amount;
-	String value;
-	Boolean isExRateAviable;
+	private Currency currency;
+	private String unitPrice;
+	private Float amount;
+	private String value;
+	private Boolean isExRateAviable;
 }

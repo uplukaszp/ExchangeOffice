@@ -19,8 +19,8 @@ import pl.uplukaszp.exchangeOffice.service.WalletService;
 @AllArgsConstructor
 public class IndexController {
 
-	WalletService walletService;
-	ExchangeRateService exchangeRateService;
+	private WalletService walletService;
+	private ExchangeRateService exchangeRateService;
 
 	@GetMapping
 	public String getIndex(Model model, Authentication auth) {

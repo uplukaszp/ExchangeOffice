@@ -10,9 +10,9 @@ import pl.uplukaszp.exchangeOffice.domain.Wallet;
 
 @Repository
 public interface WalletRepository extends CrudRepository<Wallet,Long> {
-	List<Wallet> findAllByIdUserId(Long userId);
-	Wallet findByIdUserIdAndIdCurrency(Long userId,Currency currency);
-	List<Wallet> findAllByIdUserIdAndIdCurrencyNotIn(Long userId,List<Currency> currency);
+	public List<Wallet> findAllByIdUserId(Long userId);
+	public Wallet findByIdUserIdAndIdCurrency(Long userId,Currency currency);
+	public List<Wallet> findAllByIdUserIdAndIdCurrencyNotIn(Long userId,List<Currency> currency);
 
 
 }

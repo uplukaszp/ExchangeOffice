@@ -15,9 +15,8 @@ import pl.uplukaszp.exchangeOffice.util.ExchangeRateHandler;
 @Component
 @AllArgsConstructor
 public class ExchangeRateDownloader {
-
-	ExchangeRateHandler handler;
 	private static final String url = "ws://webtask.future-processing.com:8068/ws/currencies?format=json";
+	private ExchangeRateHandler handler;
 
 	@PostConstruct
 	public void connect() throws URISyntaxException {

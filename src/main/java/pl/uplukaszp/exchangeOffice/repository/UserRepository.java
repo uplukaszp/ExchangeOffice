@@ -8,5 +8,5 @@ import pl.uplukaszp.exchangeOffice.domain.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long>{
 
-	User findByLogin(String login);
+	public User findByLogin(String login);
 }

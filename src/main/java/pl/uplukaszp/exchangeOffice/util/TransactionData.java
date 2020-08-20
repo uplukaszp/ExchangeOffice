@@ -8,13 +8,13 @@ import pl.uplukaszp.exchangeOffice.domain.Wallet;
 @Data
 public class TransactionData {
 	
-	Wallet userWallet;
-	Wallet userSettlementWallet;
-	MainWallet mainWallet;
-	MainWallet mainSettlementWallet;
-	Float price;
-	Long amount;
-	Integer unit;
-	Currency currency;
+	private Wallet userWallet;
+	private Wallet userSettlementWallet;
+	private MainWallet mainWallet;
+	private MainWallet mainSettlementWallet;
+	private Float price;
+	private Long amount;
+	private Integer unit;
+	private Currency currency;
 
 }

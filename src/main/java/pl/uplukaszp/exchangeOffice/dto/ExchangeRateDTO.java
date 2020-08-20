@@ -7,9 +7,9 @@ import pl.uplukaszp.exchangeOffice.domain.Currency;
 
 @Data
 public class ExchangeRateDTO {
-	Currency code;
-	String unit;
-	String purchasePrice;
-	Boolean isRateAviable;
-	Date date;
+	private Currency code;
+	private String unit;
+	private String purchasePrice;
+	private Boolean isRateAviable;
+	private Date date;
 }

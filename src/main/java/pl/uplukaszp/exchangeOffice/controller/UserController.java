@@ -18,7 +18,7 @@ import pl.uplukaszp.exchangeOffice.service.UserService;
 @SessionAttributes
 @AllArgsConstructor
 public class UserController {
-	UserService userService;
+	private UserService userService;
 	@GetMapping("/register")
 	public String getRegisterForm(Model model) {
 		model.addAttribute("user",new UserDTO());

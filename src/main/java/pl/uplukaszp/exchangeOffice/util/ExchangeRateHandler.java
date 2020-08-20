@@ -20,10 +20,10 @@ import pl.uplukaszp.exchangeOffice.service.ExchangeRateService;
 @AllArgsConstructor
 @Slf4j
 public class ExchangeRateHandler extends TextWebSocketHandler {
-	ExchangeRateRepository repository;
-	ExchangeRateService service;
-	SimpMessagingTemplate messagingTemplate;
-	ObjectMapper mapper;
+	private ExchangeRateRepository repository;
+	private ExchangeRateService service;
+	private SimpMessagingTemplate messagingTemplate;
+	private ObjectMapper mapper;
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {

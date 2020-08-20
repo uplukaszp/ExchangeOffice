@@ -5,7 +5,7 @@ import pl.uplukaszp.exchangeOffice.domain.Currency;
 
 @Data
 public class CurrencyDTO {
-	Currency currency;
-	Integer unit;
-	Float value;
+	private Currency currency;
+	private Integer unit;
+	private Float value;
 }

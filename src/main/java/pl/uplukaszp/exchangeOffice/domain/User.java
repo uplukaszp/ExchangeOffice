@@ -25,12 +25,12 @@ public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	Long id;
+	private Long id;
 	@Column(unique=true)
-	String login;
-	String password;
+	private String login;
+	private String password;
 	@OneToMany(mappedBy="id.userId",cascade=CascadeType.MERGE)
-	List<Wallet> wallets=new ArrayList<>();
+	private List<Wallet> wallets=new ArrayList<>();
 	
 	public void addWallet(Wallet w) {
 		wallets.add(w);

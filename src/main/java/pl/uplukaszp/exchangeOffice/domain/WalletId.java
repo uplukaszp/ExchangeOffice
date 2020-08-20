@@ -11,6 +11,6 @@ import lombok.Data;
 @Embeddable
 public class WalletId implements Serializable{
 	
-	Long userId;
-	Currency currency;
+	private Long userId;
+	private Currency currency;
 }

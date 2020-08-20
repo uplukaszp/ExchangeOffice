@@ -17,26 +17,26 @@ public class UserDTO {
 	String login;
 	@NotBlank(message = "Password can't be blank")
 	@Size(min = 5, message = "Size must be at least 5")
-	String password;
+	private String password;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	Float gbp;
+	private Float gbp;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	Float eur;
+	private Float eur;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	Float usd;
+	private Float usd;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	Float czk;
+	private Float czk;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	Float pln;
+	private Float pln;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	Float cfh;
+	private Float cfh;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	Float rub;
+	private Float rub;
 }

@@ -15,7 +15,7 @@ import pl.uplukaszp.exchangeOffice.repository.ExchangeRateRepository;
 @Service
 @AllArgsConstructor
 public class ExchangeRateService {
-	ExchangeRateRepository repo;
+	private ExchangeRateRepository repo;
 
 	public List<ExchangeRateDTO> getRates() {
 		List<ExchangeRate> rates = (List<ExchangeRate>) repo.findAll();

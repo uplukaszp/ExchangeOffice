@@ -19,9 +19,9 @@ import pl.uplukaszp.exchangeOffice.util.TransactionData;
 @AllArgsConstructor
 @Slf4j
 public class SelllingService {
-	WalletRepository walletRepo;
-	MainWalletRepository mainWalletRepo;
-	ExchangeRateRepository exchangeRateRepo;
+	private WalletRepository walletRepo;
+	private MainWalletRepository mainWalletRepo;
+	private ExchangeRateRepository exchangeRateRepo;
 
 	@Transactional
 	public Status execute(Currency currency, Long amount, Long userId) {

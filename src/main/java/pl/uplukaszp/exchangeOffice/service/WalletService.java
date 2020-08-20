@@ -18,8 +18,8 @@ import pl.uplukaszp.exchangeOffice.repository.WalletRepository;
 @Service
 @AllArgsConstructor
 public class WalletService {
-	WalletRepository walletRepo;
-	ExchangeRateRepository repository;
+	private WalletRepository walletRepo;
+	private ExchangeRateRepository repository;
 
 	public Wallet getUserSettlementWallet(Long userId) {
 		return walletRepo.findByIdUserIdAndIdCurrency(userId,Currency.PLN);

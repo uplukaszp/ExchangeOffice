@@ -21,7 +21,7 @@ import pl.uplukaszp.exchangeOffice.service.WalletService;
 @RequestMapping("/wallet")
 @AllArgsConstructor
 public class WalletController {
-	WalletService service;
+	private WalletService service;
 
 	@GetMapping
 	@ResponseBody

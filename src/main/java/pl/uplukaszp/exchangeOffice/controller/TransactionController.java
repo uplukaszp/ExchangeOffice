@@ -19,8 +19,8 @@ import pl.uplukaszp.exchangeOffice.util.Status;
 @RequestMapping("/transaction")
 @AllArgsConstructor
 public class TransactionController {
-	BuyingService buying;
-	SelllingService sell;
+	private BuyingService buying;
+	private SelllingService sell;
 
 	@PostMapping("/buying")
 	@ResponseBody

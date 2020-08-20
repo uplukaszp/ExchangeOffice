@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Status {
-	Boolean isOK;
-	String reason;
+	private Boolean isOK;
+	private String reason;
 }
