@@ -1,5 +1,6 @@
 package pl.uplukaszp.exchangeOffice.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -21,11 +22,11 @@ public class ExchangeRate {
 	@JsonProperty("Unit")
 	private Integer unit;
 	@JsonProperty("PurchasePrice")
-	private Float purchasePrice;
+	private BigDecimal purchasePrice;
 	@JsonProperty("SellPrice")
-	private Float sellPrice;
+	private BigDecimal sellPrice;
 	@JsonProperty("AveragePrice")
-	private Float averagePrice;
+	private BigDecimal averagePrice;
 	@JsonIgnore
 	private Date date;
 }

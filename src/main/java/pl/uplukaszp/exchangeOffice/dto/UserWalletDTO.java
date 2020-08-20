@@ -1,6 +1,8 @@
 package pl.uplukaszp.exchangeOffice.dto;
 
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 import pl.uplukaszp.exchangeOffice.domain.Currency;
 
@@ -8,7 +10,7 @@ import pl.uplukaszp.exchangeOffice.domain.Currency;
 public class UserWalletDTO {
 	private Currency currency;
 	private String unitPrice;
-	private Float amount;
+	private BigDecimal amount;
 	private String value;
 	private Boolean isExRateAviable;
 }

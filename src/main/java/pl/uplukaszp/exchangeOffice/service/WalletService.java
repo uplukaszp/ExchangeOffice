@@ -1,5 +1,6 @@
 package pl.uplukaszp.exchangeOffice.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,9 +53,9 @@ public class WalletService {
 		dto.setCurrency(wallet.getCurrency());
 		ExchangeRate exRate = getRate(rates, wallet.getCurrency());
 		if(exRate!=null) {
-			Float price=exRate.getSellPrice();
+			BigDecimal price=exRate.getSellPrice();
 			dto.setUnitPrice(String.valueOf(price));
-			dto.setValue(String.valueOf(dto.getAmount()*price/exRate.getUnit()));
+			dto.setValue(String.valueOf(price.multiply(dto.getAmount()).divide(new BigDecimal(exRate.getUnit()))));
 			
 		}else {
 			dto.setUnitPrice("-");

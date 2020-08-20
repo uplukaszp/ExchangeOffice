@@ -1,6 +1,7 @@
 package pl.uplukaszp.exchangeOffice.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -15,9 +16,9 @@ public class Wallet implements Serializable {
 
 	@EmbeddedId
 	private WalletId id;
-	private Float amount;
+	private BigDecimal amount;
 
-	public Wallet(Long id, Currency currency, Float amount) {
+	public Wallet(Long id, Currency currency, BigDecimal amount) {
 		this.id = new WalletId();
 		this.id.setCurrency(currency);
 		this.id.setUserId(id);

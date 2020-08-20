@@ -1,5 +1,7 @@
 package pl.uplukaszp.exchangeOffice.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,14 +64,15 @@ public class BuyingService {
 	}
 
 	private Status hasUserEnoughMoney(TransactionData data) {
-		if (data.getAmount() * data.getPrice() <= data.getUserSettlementWallet().getAmount()) {
+		if (data.getPrice().multiply(new BigDecimal(data.getAmount()))
+				.compareTo(data.getUserSettlementWallet().getAmount()) == -1) {
 			return new Status(true, "You have enought money");
 		}
 		return new Status(false, "You have not enought money");
 	}
 
 	private Status hasExchangeOfficeEnoughMoney(TransactionData data) {
-		if (data.getAmount() * data.getUnit() <= data.getMainWallet().getAmount()) {
+		if (new BigDecimal(data.getAmount() * data.getUnit()).compareTo(data.getMainWallet().getAmount()) == -1) {
 			return new Status(true, "Exchange office has enought money");
 
 		}
@@ -85,10 +88,12 @@ public class BuyingService {
 			MainWallet mainWallet = data.getMainWallet();
 			MainWallet mainSettlementWallet = data.getMainSettlementWallet();
 
-			userSettlementWallet.setAmount(userSettlementWallet.getAmount() - data.getAmount() * data.getPrice());
-			mainSettlementWallet.setAmount(mainSettlementWallet.getAmount() + data.getAmount() * data.getPrice());
-			mainWallet.setAmount(mainWallet.getAmount() - data.getAmount() * data.getUnit());
-			userWallet.setAmount(userWallet.getAmount() + data.getAmount() * data.getUnit());
+			userSettlementWallet.setAmount(userSettlementWallet.getAmount()
+					.subtract(data.getPrice().multiply(new BigDecimal(data.getAmount()))));
+			mainSettlementWallet.setAmount(
+					mainSettlementWallet.getAmount().add(data.getPrice().multiply(new BigDecimal(data.getAmount()))));
+			mainWallet.setAmount(mainWallet.getAmount().subtract(new BigDecimal(data.getAmount() * data.getUnit())));
+			userWallet.setAmount(userWallet.getAmount().add(new BigDecimal(data.getAmount() * data.getUnit())));
 
 			walletRepo.save(userWallet);
 			walletRepo.save(userSettlementWallet);

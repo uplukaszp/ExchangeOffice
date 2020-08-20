@@ -1,5 +1,7 @@
 package pl.uplukaszp.exchangeOffice.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,15 +64,16 @@ public class SelllingService {
 	}
 
 	private Status hasUserEnoughMoney(TransactionData data) {
-		if (data.getAmount() <= data.getUserWallet().getAmount()) {
-				
+		if (new BigDecimal(data.getAmount()).compareTo(data.getUserWallet().getAmount()) == -1) {
+
 			return new Status(true, "You have enought money");
 		}
 		return new Status(false, "You can't sell more money than you own");
 	}
 
 	private Status hasExchangeOfficeEnoughMoney(TransactionData data) {
-		if (data.getAmount()*data.getPrice() <= data.getMainSettlementWallet().getAmount()) {
+		if (new BigDecimal(data.getAmount()).multiply(data.getPrice())
+				.compareTo(data.getMainSettlementWallet().getAmount()) == -1) {
 			return new Status(true, "Exchange office has enought money");
 
 		}
@@ -86,10 +89,12 @@ public class SelllingService {
 			MainWallet mainWallet = data.getMainWallet();
 			MainWallet mainSettlementWallet = data.getMainSettlementWallet();
 
-			userSettlementWallet.setAmount(userSettlementWallet.getAmount() + data.getAmount() * data.getPrice());
-			mainSettlementWallet.setAmount(mainSettlementWallet.getAmount() - data.getAmount() * data.getPrice());
-			mainWallet.setAmount(mainWallet.getAmount() + data.getAmount());
-			userWallet.setAmount(userWallet.getAmount() - data.getAmount());
+			userSettlementWallet.setAmount(
+					userSettlementWallet.getAmount().add(data.getPrice().multiply(new BigDecimal(data.getAmount()))));
+			mainSettlementWallet.setAmount(mainSettlementWallet.getAmount()
+					.subtract(data.getPrice().multiply(new BigDecimal(data.getAmount()))));
+			mainWallet.setAmount(mainWallet.getAmount().add(new BigDecimal(data.getAmount())));
+			userWallet.setAmount(userWallet.getAmount().add(new BigDecimal(data.getAmount())));
 
 			walletRepo.save(userWallet);
 			walletRepo.save(userSettlementWallet);

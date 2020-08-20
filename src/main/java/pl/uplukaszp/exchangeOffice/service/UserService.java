@@ -1,5 +1,6 @@
 package pl.uplukaszp.exchangeOffice.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,11 +61,9 @@ public class UserService implements UserDetailsService {
 		return wallets;
 	}
 
-	private Float getNonNullValue(Float value) {
-		return (value != null) ? value : 0.0f;
+	private BigDecimal getNonNullValue(BigDecimal value) {
+		return (value != null) ? value : new BigDecimal(0);
 	}
-
-
 
 	public Object findByLogin(String login) {
 		return userRepository.findByLogin(login);

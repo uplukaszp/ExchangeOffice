@@ -1,5 +1,7 @@
 package pl.uplukaszp.exchangeOffice.dto;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -20,23 +22,23 @@ public class UserDTO {
 	private String password;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	private Float gbp;
+	private BigDecimal gbp;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	private Float eur;
+	private BigDecimal eur;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	private Float usd;
+	private BigDecimal usd;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	private Float czk;
+	private BigDecimal czk;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	private Float pln;
+	private BigDecimal pln;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	private Float cfh;
+	private BigDecimal cfh;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
-	private Float rub;
+	private BigDecimal rub;
 }
