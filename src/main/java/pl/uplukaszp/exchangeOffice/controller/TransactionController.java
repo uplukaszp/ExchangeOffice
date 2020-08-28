@@ -13,7 +13,7 @@ import pl.uplukaszp.exchangeOffice.domain.Currency;
 import pl.uplukaszp.exchangeOffice.domain.User;
 import pl.uplukaszp.exchangeOffice.service.BuyingService;
 import pl.uplukaszp.exchangeOffice.service.SelllingService;
-import pl.uplukaszp.exchangeOffice.util.Status;
+import pl.uplukaszp.exchangeOffice.util.TransactionStatus;
 
 @RestController
 @RequestMapping("/transaction")
@@ -24,10 +24,10 @@ public class TransactionController {
 
 	@PostMapping("/buying")
 	@ResponseBody
-	ResponseEntity<Status> buy(Currency currencyType, Long amount, Authentication principal) {
+	ResponseEntity<TransactionStatus> buy(Currency currencyType, Long amount, Authentication principal) {
 		User user = (User) principal.getPrincipal();
 
-		Status status = buying.execute(currencyType, amount, user.getId());
+		TransactionStatus status = buying.execute(currencyType, amount, user.getId());
 		if (status.getIsOK()) {
 			return new ResponseEntity<>(status, HttpStatus.OK);
 		}
@@ -37,9 +37,9 @@ public class TransactionController {
 
 	@PostMapping("/selling")
 	@ResponseBody
-	ResponseEntity<Status> sell(Currency currencyType, Long amount, Authentication principal) {
+	ResponseEntity<TransactionStatus> sell(Currency currencyType, Long amount, Authentication principal) {
 		User user = (User) principal.getPrincipal();
-		Status status = sell.execute(currencyType, amount, user.getId());
+		TransactionStatus status = sell.execute(currencyType, amount, user.getId());
 		if (status.getIsOK()) {
 			return new ResponseEntity<>(status, HttpStatus.OK);
 		}

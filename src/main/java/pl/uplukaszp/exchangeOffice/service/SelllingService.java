@@ -14,7 +14,7 @@ import pl.uplukaszp.exchangeOffice.domain.Wallet;
 import pl.uplukaszp.exchangeOffice.repository.ExchangeRateRepository;
 import pl.uplukaszp.exchangeOffice.repository.MainWalletRepository;
 import pl.uplukaszp.exchangeOffice.repository.WalletRepository;
-import pl.uplukaszp.exchangeOffice.util.Status;
+import pl.uplukaszp.exchangeOffice.util.TransactionStatus;
 import pl.uplukaszp.exchangeOffice.util.TransactionData;
 
 @Service
@@ -26,11 +26,11 @@ public class SelllingService {
 	private ExchangeRateRepository exchangeRateRepo;
 
 	@Transactional
-	public Status execute(Currency currency, Long amount, Long userId) {
+	public TransactionStatus execute(Currency currency, Long amount, Long userId) {
 		TransactionData transactionData = getTransactionData(currency, amount, userId);
 
-		Status exchangeOfficeStatus = hasExchangeOfficeEnoughMoney(transactionData);
-		Status userStatus = hasUserEnoughMoney(transactionData);
+		TransactionStatus exchangeOfficeStatus = hasExchangeOfficeEnoughMoney(transactionData);
+		TransactionStatus userStatus = hasUserEnoughMoney(transactionData);
 
 		Boolean userHasEnoughtMoney = userStatus.getIsOK();
 		Boolean exchangeOfficeHasEnoughtMoney = exchangeOfficeStatus.getIsOK();
@@ -63,24 +63,24 @@ public class SelllingService {
 		return data;
 	}
 
-	private Status hasUserEnoughMoney(TransactionData data) {
+	private TransactionStatus hasUserEnoughMoney(TransactionData data) {
 		if (new BigDecimal(data.getAmount()).compareTo(data.getUserWallet().getAmount()) == -1) {
 
-			return new Status(true, "You have enought money");
+			return new TransactionStatus(true, "You have enought money");
 		}
-		return new Status(false, "You can't sell more money than you own");
+		return new TransactionStatus(false, "You can't sell more money than you own");
 	}
 
-	private Status hasExchangeOfficeEnoughMoney(TransactionData data) {
+	private TransactionStatus hasExchangeOfficeEnoughMoney(TransactionData data) {
 		if (new BigDecimal(data.getAmount()).multiply(data.getPrice())
 				.compareTo(data.getMainSettlementWallet().getAmount()) == -1) {
-			return new Status(true, "Exchange office has enought money");
+			return new TransactionStatus(true, "Exchange office has enought money");
 
 		}
-		return new Status(false, "Exchange office has not enought money");
+		return new TransactionStatus(false, "Exchange office has not enought money");
 	}
 
-	private Status buyCurrencyForUser(TransactionData data) {
+	private TransactionStatus buyCurrencyForUser(TransactionData data) {
 		log.info("buyCurrencyForUser: " + data.toString());
 
 		try {
@@ -102,8 +102,8 @@ public class SelllingService {
 			mainWalletRepo.save(mainSettlementWallet);
 		} catch (Exception e) {
 			log.trace("Error while buying", e);
-			return new Status(false, e.getCause().toString());
+			return new TransactionStatus(false, e.getCause().toString());
 		}
-		return new Status(true, "Transaction Complete");
+		return new TransactionStatus(true, "Transaction Complete");
 	}
 }

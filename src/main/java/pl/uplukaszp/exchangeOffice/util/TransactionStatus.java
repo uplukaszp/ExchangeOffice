@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Status {
+public class TransactionStatus {
 	private Boolean isOK;
 	private String reason;
 }
