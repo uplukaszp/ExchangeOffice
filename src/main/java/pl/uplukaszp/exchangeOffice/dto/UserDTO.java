@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
@@ -22,23 +23,30 @@ public class UserDTO {
 	private String password;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
+	@NotNull
 	private BigDecimal gbp;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
+	@NotNull
 	private BigDecimal eur;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
+	@NotNull
 	private BigDecimal usd;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
+	@NotNull
 	private BigDecimal czk;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
+	@NotNull
 	private BigDecimal pln;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
+	@NotNull
 	private BigDecimal cfh;
 	@Min(value = 0, message = "Value must be greather than 0")
 	@Max(value=(long) Float.MAX_VALUE, message = "Enter a smaller amount")
+	@NotNull
 	private BigDecimal rub;
 }

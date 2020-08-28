@@ -1,6 +1,5 @@
 package pl.uplukaszp.exchangeOffice.service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,37 +34,41 @@ public class UserService implements UserDetailsService {
 		throw new UsernameNotFoundException("User " + username + " not found");
 	}
 
-	public User registerUser(UserDTO userDTO) {
+	public User findByLogin(String login) {
+		return userRepository.findByLogin(login);
+	}
+
+	public User registerNewUser(UserDTO userDTO) {
 		User user = new User();
 		user.setLogin(userDTO.getLogin());
-		user.setPassword(encoder.encode(userDTO.getPassword()));
+		user.setPassword(getUserEncodedPassword(userDTO));
 		user = userRepository.save(user);
-
-		user.setWallets(getWallets(userDTO, user.getId()));
-		user.setWallets((List<Wallet>) walletRepository.saveAll(user.getWallets()));
+		user.setWallets(getNewUserWallets(userDTO, user.getId()));
 
 		return user;
 	}
 
-	private List<Wallet> getWallets(UserDTO userDTO, Long id) {
+	private String getUserEncodedPassword(UserDTO userDTO) {
+		return encoder.encode(userDTO.getPassword());
+	}
+
+	private List<Wallet> getNewUserWallets(UserDTO userDTO, Long userId) {
+		List<Wallet> userWalletsInitalValues = getWalletsInitalValues(userDTO, userId);
+		List<Wallet> savedWallets = walletRepository.saveAll(userWalletsInitalValues);
+		return savedWallets;
+	}
+
+	private List<Wallet> getWalletsInitalValues(UserDTO userDTO, Long id) {
 		List<Wallet> wallets = new ArrayList<>();
 
-		wallets.add(new Wallet(id, Currency.CZK, getNonNullValue(userDTO.getCzk())));
-		wallets.add(new Wallet(id, Currency.EUR, getNonNullValue(userDTO.getEur())));
-		wallets.add(new Wallet(id, Currency.GBP, getNonNullValue(userDTO.getGbp())));
-		wallets.add(new Wallet(id, Currency.PLN, getNonNullValue(userDTO.getPln())));
-		wallets.add(new Wallet(id, Currency.USD, getNonNullValue(userDTO.getUsd())));
-		wallets.add(new Wallet(id, Currency.CHF, getNonNullValue(userDTO.getCfh())));
-		wallets.add(new Wallet(id, Currency.RUB, getNonNullValue(userDTO.getRub())));
+		wallets.add(new Wallet(id, Currency.CZK, userDTO.getCzk()));
+		wallets.add(new Wallet(id, Currency.EUR, userDTO.getEur()));
+		wallets.add(new Wallet(id, Currency.GBP, userDTO.getGbp()));
+		wallets.add(new Wallet(id, Currency.PLN, userDTO.getPln()));
+		wallets.add(new Wallet(id, Currency.USD, userDTO.getUsd()));
+		wallets.add(new Wallet(id, Currency.CHF, userDTO.getCfh()));
+		wallets.add(new Wallet(id, Currency.RUB, userDTO.getRub()));
 
 		return wallets;
-	}
-
-	private BigDecimal getNonNullValue(BigDecimal value) {
-		return (value != null) ? value : new BigDecimal(0);
-	}
-
-	public Object findByLogin(String login) {
-		return userRepository.findByLogin(login);
 	}
 }

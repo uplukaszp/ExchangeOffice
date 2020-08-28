@@ -18,25 +18,41 @@ import pl.uplukaszp.exchangeOffice.service.UserService;
 @SessionAttributes
 @AllArgsConstructor
 public class UserController {
+	private static final String USER_EXIST_ERROR_CODE = "login.exist";
+	private static final String USER_EXIST_MESSAGE = "User with this login exist";
+	private static final String LOGIN_FORM_NAME = "login";
+	private static final String REGISTER_FORM_NAME = "register";
+	
 	private UserService userService;
+
+	@GetMapping("/login")
+	public String getLoginForm() {
+		return LOGIN_FORM_NAME;
+	}
+
 	@GetMapping("/register")
 	public String getRegisterForm(Model model) {
-		model.addAttribute("user",new UserDTO());
-		return "register";
+		initRegisterForm(model);
+		return REGISTER_FORM_NAME;
 	}
-	@GetMapping("/login")
-	public String login() {
-		return "login";
+
+	private void initRegisterForm(Model model) {
+		model.addAttribute("user", new UserDTO());
 	}
+
 	@PostMapping("/register")
-	public String registerUser(@ModelAttribute(name="user")@Valid UserDTO user,BindingResult errors) {
-		if(userService.findByLogin(user.getLogin())!=null){
-			errors.rejectValue("login", "login.exist","User with this login exist");
+	public String processRegisterForm(@ModelAttribute(name = "user") @Valid UserDTO user, BindingResult errors) {
+		if (userExist(user)) {
+			errors.rejectValue(LOGIN_FORM_NAME, USER_EXIST_ERROR_CODE, USER_EXIST_MESSAGE);
 		}
-		if(errors.hasErrors()) {
-			return "register";
+		if (errors.hasErrors()) {
+			return REGISTER_FORM_NAME;
 		}
-		userService.registerUser(user);
+		userService.registerNewUser(user);
 		return "redirect:/login";
+	}
+
+	private boolean userExist(UserDTO user) {
+		return userService.findByLogin(user.getLogin()) != null;
 	}
 }

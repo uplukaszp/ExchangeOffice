@@ -13,6 +13,6 @@ public interface WalletRepository extends CrudRepository<Wallet,Long> {
 	public List<Wallet> findAllByIdUserId(Long userId);
 	public Wallet findByIdUserIdAndIdCurrency(Long userId,Currency currency);
 	public List<Wallet> findAllByIdUserIdAndIdCurrencyNotIn(Long userId,List<Currency> currency);
-
+	public List<Wallet> saveAll(List<Wallet> wallets);
 
 }
