@@ -54,7 +54,7 @@ public class UserService implements UserDetailsService {
 
 	private List<Wallet> getNewUserWallets(UserDTO userDTO, Long userId) {
 		List<Wallet> userWalletsInitalValues = getWalletsInitalValues(userDTO, userId);
-		List<Wallet> savedWallets = walletRepository.saveAll(userWalletsInitalValues);
+		List<Wallet> savedWallets = (List<Wallet>) walletRepository.saveAll(userWalletsInitalValues);
 		return savedWallets;
 	}
 

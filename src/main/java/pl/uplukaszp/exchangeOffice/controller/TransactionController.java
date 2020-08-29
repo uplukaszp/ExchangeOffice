@@ -11,23 +11,24 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 import pl.uplukaszp.exchangeOffice.domain.Currency;
 import pl.uplukaszp.exchangeOffice.domain.User;
-import pl.uplukaszp.exchangeOffice.service.BuyingService;
-import pl.uplukaszp.exchangeOffice.service.SelllingService;
-import pl.uplukaszp.exchangeOffice.util.TransactionStatus;
+import pl.uplukaszp.exchangeOffice.service.PrepareTransactionService;
+import pl.uplukaszp.exchangeOffice.service.TransactionService;
+import pl.uplukaszp.exchangeOffice.transaction.TransactionStatus;
 
 @RestController
 @RequestMapping("/transaction")
 @AllArgsConstructor
 public class TransactionController {
-	private BuyingService buying;
-	private SelllingService sell;
+	private TransactionService transactionService;
+	private PrepareTransactionService prepareService;
 
 	@PostMapping("/buying")
 	@ResponseBody
 	ResponseEntity<TransactionStatus> buy(Currency currencyType, Long amount, Authentication principal) {
 		User user = (User) principal.getPrincipal();
 
-		TransactionStatus status = buying.execute(currencyType, amount, user.getId());
+		TransactionStatus status = transactionService.executeTransaction(prepareService
+				.getBuyingTransactionExecutor(prepareService.getTransactionData(currencyType, amount, user.getId())));
 		if (status.getIsOK()) {
 			return new ResponseEntity<>(status, HttpStatus.OK);
 		}
@@ -39,7 +40,8 @@ public class TransactionController {
 	@ResponseBody
 	ResponseEntity<TransactionStatus> sell(Currency currencyType, Long amount, Authentication principal) {
 		User user = (User) principal.getPrincipal();
-		TransactionStatus status = sell.execute(currencyType, amount, user.getId());
+		TransactionStatus status = transactionService.executeTransaction(prepareService
+				.getSellingTransactionExecutor(prepareService.getTransactionData(currencyType, amount, user.getId())));
 		if (status.getIsOK()) {
 			return new ResponseEntity<>(status, HttpStatus.OK);
 		}

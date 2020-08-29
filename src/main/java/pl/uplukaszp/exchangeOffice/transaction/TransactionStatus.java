@@ -1,4 +1,4 @@
-package pl.uplukaszp.exchangeOffice.util;
+package pl.uplukaszp.exchangeOffice.transaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class TransactionStatus {
 	private Boolean isOK;
-	private String reason;
+	private FaultDescription faultDescription;
 }

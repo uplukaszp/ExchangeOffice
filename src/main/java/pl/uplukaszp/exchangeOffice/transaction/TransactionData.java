@@ -1,4 +1,4 @@
-package pl.uplukaszp.exchangeOffice.util;
+package pl.uplukaszp.exchangeOffice.transaction;
 
 import java.math.BigDecimal;
 
