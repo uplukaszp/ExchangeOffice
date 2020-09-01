@@ -9,8 +9,6 @@ import lombok.Data;
 
 @Data
 public class ExchangeRates {
-	@JsonProperty("Items")
 	private List<ExchangeRate> items;
-	@JsonProperty("PublicationDate")
 	private Date publicationDate;
 }
