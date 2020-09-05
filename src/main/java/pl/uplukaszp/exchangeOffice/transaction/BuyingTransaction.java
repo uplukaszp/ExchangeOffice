@@ -22,16 +22,15 @@ public class BuyingTransaction extends TransactionExecutor {
 
 	private Boolean hasUserEnoughMoney() {
 		if (data.getPrice().multiply(new BigDecimal(data.getAmount()))
-				.compareTo(data.getUserSettlementWallet().getAmount()) == -1) {
+				.compareTo(data.getUserSettlementWallet().getAmount()) < 1) {
 			return true;
 		}
 		return false;
 	}
 
 	private Boolean hasExchangeOfficeEnoughMoney() {
-		if (new BigDecimal(data.getAmount() * data.getUnit()).compareTo(data.getMainWallet().getAmount()) == -1) {
+		if (new BigDecimal(data.getAmount() * data.getUnit()).compareTo(data.getMainWallet().getAmount()) < 1) {
 			return true;
-
 		}
 		return false;
 	}
@@ -56,7 +55,7 @@ public class BuyingTransaction extends TransactionExecutor {
 			mainWalletRepo.save(mainWallet);
 			mainWalletRepo.save(mainSettlementWallet);
 		} catch (Exception e) {
-			log.trace("Error while buying", e);
+			log.error("Error while buying", e);
 			return false;
 		}
 		return true;
