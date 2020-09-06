@@ -20,7 +20,7 @@ public class SellingTransaction extends TransactionExecutor {
 	}
 
 	private Boolean hasUserEnoughtMoney() {
-		if (new BigDecimal(data.getAmount()).compareTo(data.getUserWallet().getAmount()) == -1) {
+		if (new BigDecimal(data.getAmount()).compareTo(data.getUserWallet().getAmount()) < 1) {
 
 			return true;
 		}
@@ -29,7 +29,7 @@ public class SellingTransaction extends TransactionExecutor {
 
 	private Boolean hasExchangeOfficeEnoughMoney() {
 		if (new BigDecimal(data.getAmount()).multiply(data.getPrice())
-				.compareTo(data.getMainSettlementWallet().getAmount()) == -1) {
+				.compareTo(data.getMainSettlementWallet().getAmount()) < 1) {
 			return true;
 
 		}
@@ -48,7 +48,7 @@ public class SellingTransaction extends TransactionExecutor {
 			mainSettlementWallet.setAmount(mainSettlementWallet.getAmount()
 					.subtract(data.getPrice().multiply(new BigDecimal(data.getAmount()))));
 			mainWallet.setAmount(mainWallet.getAmount().add(new BigDecimal(data.getAmount())));
-			userWallet.setAmount(userWallet.getAmount().add(new BigDecimal(data.getAmount())));
+			userWallet.setAmount(userWallet.getAmount().subtract(new BigDecimal(data.getAmount())));
 
 			walletRepo.save(userWallet);
 			walletRepo.save(userSettlementWallet);
